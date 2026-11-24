@@ -32,18 +32,24 @@ export function Map2D({ activeLayers }: Props) {
       style: {
         version: 8,
         sources: {
-          osm: {
+          basemap: {
             type: "raster",
-            tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+            // Carto dark tiles (OSM data) — official tile.openstreetmap.org often
+            // blocks/refuses browser app traffic and causes empty Explore maps.
+            tiles: [
+              "https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+              "https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+              "https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+            ],
             tileSize: 256,
-            attribution: "© OpenStreetMap contributors",
+            attribution: "© OpenStreetMap contributors © CARTO",
           },
         },
         layers: [
           {
-            id: "osm",
+            id: "basemap",
             type: "raster",
-            source: "osm",
+            source: "basemap",
           },
         ],
       },
