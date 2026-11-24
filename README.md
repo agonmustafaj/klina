@@ -55,17 +55,18 @@ DATABASE_URL=postgresql+psycopg://cityos:cityos@localhost:5432/cityos \
   python pipeline/scripts/import_postgis.py
 ```
 
-## Cloudflare Pages (deferred)
+## Cloudflare Pages
 
-Do not deploy until `frontend/` production build is confirmed. When ready, expected fields:
+Frontend is a **static export** (`output: "export"` → `frontend/out`).
 
 | Field | Value |
 |-------|--------|
 | Root directory | `frontend` |
 | Build command | `npm run build` |
-| Framework | Next.js |
+| Build output directory | `out` |
+| Framework preset | Next.js (or None) |
 
-Output/adapter (static export vs Node) will be confirmed after the first green build.
+Set `NEXT_PUBLIC_API_URL` to your public FastAPI origin when the API is hosted. Until then the UI falls back to `http://localhost:8000` (works only on your machine).
 
 ## Docs
 
