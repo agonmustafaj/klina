@@ -34,15 +34,13 @@ export function Map2D({ activeLayers }: Props) {
         sources: {
           basemap: {
             type: "raster",
-            // Carto dark tiles (OSM data) — official tile.openstreetmap.org often
-            // blocks/refuses browser app traffic and causes empty Explore maps.
+            // Free raster basemap — no API key. (Carto CDN now watermarks without a key;
+            // tile.openstreetmap.org often blocks browser apps.)
             tiles: [
-              "https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
-              "https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
-              "https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+              "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
             ],
             tileSize: 256,
-            attribution: "© OpenStreetMap contributors © CARTO",
+            attribution: "Tiles © Esri — Source: Esri, HERE, Garmin, FAO, NOAA, USGS",
           },
         },
         layers: [
