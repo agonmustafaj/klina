@@ -86,8 +86,10 @@ def boundary_poly_for_osmium() -> Path:
 
 
 def clip_with_osmium(poly_path: Path) -> bool:
-    osmium = subprocess.run(["which", "osmium"], capture_output=True, text=True)
-    if osmium.returncode != 0:
+    import shutil
+
+    # Use shutil.which — `which` is Unix-only and crashes on Windows.
+    if shutil.which("osmium") is None:
         return False
     cmd = [
         "osmium",
@@ -284,8 +286,9 @@ def main() -> None:
     used_osmium = False
     try:
         used_osmium = clip_with_osmium(poly)
-    except subprocess.CalledProcessError as exc:
-        print(f"osmium extract failed: {exc}", file=sys.stderr)
+    except (subprocess.CalledProcessError, OSError, FileNotFoundError) as exc:
+        print(f"osmium extract unavailable/failed: {exc}", file=sys.stderr)
+        used_osmium = False
 
     layer_stats = {}
     if not used_osmium:
