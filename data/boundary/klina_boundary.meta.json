@@ -1,0 +1,20 @@
+{
+  "source": "OpenStreetMap via Nominatim",
+  "source_url": "https://nominatim.openstreetmap.org/",
+  "osm_type": "relation",
+  "osm_id": 1332179,
+  "display_name": "Komuna e Klin\u00ebs / Op\u0161tina Klina, Rajoni i Pej\u00ebs / Pe\u0107ki okrug, Kosova / Kosovo",
+  "boundingbox": [
+    "42.5160484",
+    "42.7147058",
+    "20.4634583",
+    "20.7671981"
+  ],
+  "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+  "class": "boundary",
+  "type": "administrative",
+  "area_km2_computed": 308.83,
+  "area_km2_reference": 308.8,
+  "overpass_tags": null,
+  "verification": "admin polygon + area within municipal reference range"
+}

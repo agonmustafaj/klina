@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: cityos-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cityos}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cityos}
+      POSTGRES_DB: ${POSTGRES_DB:-cityos}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - cityos_pgdata:/var/lib/postgresql/data
+      - ./backend/db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cityos} -d ${POSTGRES_DB:-cityos}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cityos-api
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-cityos}:${POSTGRES_PASSWORD:-cityos}@db:5432/${POSTGRES_DB:-cityos}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - ./backend:/app
+      - ./data:/data:ro
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+
+volumes:
+  cityos_pgdata:
