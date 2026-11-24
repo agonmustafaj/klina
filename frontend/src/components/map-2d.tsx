@@ -10,6 +10,12 @@ import { getApiBase } from "@/lib/api";
 const KLINA_CENTER: [number, number] = [20.62, 42.62];
 const KLINA_ZOOM = 10.5;
 
+// Next.js / Turbopack often breaks the bundled MapLibre worker URL.
+// Prefer the copy under /public; fall back to CDN if missing.
+if (typeof window !== "undefined") {
+  maplibregl.setWorkerUrl("/maplibre-gl-worker.mjs");
+}
+
 type Props = {
   activeLayers: string[];
 };
