@@ -1,0 +1,10 @@
+[project]
+name = "cityos-api"
+version = "0.1.0"
+description = "CityOS FastAPI backend for Klina municipality"
+requires-python = ">=3.12,<3.14"
+readme = "README.md"
+
+# Runtime deps are pinned in requirements.txt for reproducible local/Docker installs.
+# Supported: CPython 3.12 and 3.13 on Windows/macOS/Linux.
+# Not supported yet: Python 3.15+ (missing wheels for several GIS/DB packages).

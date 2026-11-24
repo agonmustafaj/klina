@@ -17,7 +17,8 @@ Full-municipality digital twin for **Klina (Klinë), Kosovo**: Next.js + MapLibr
 
 ## Run locally
 
-**Python:** use **3.12 or 3.13** (3.15 is too new for current package wheels).
+**Python:** **3.12 or 3.13 only** (`requires-python = ">=3.12,<3.14"` in `backend/pyproject.toml`).  
+Do **not** use 3.15 — several deps (e.g. `psycopg-binary`) have no wheels yet.
 
 ```bash
 cp .env.example .env
@@ -26,9 +27,10 @@ cp frontend/.env.example frontend/.env.local
 # PostGIS
 docker compose up -d db
 
-# API
+# API (Windows: py -3.12 -m venv .venv && .\.venv\Scripts\Activate.ps1)
 cd backend
-python -m venv .venv && source .venv/bin/activate   # Windows: py -3.12 -m venv .venv
+python3.12 -m venv .venv && source .venv/bin/activate
+pip install -U pip
 pip install -r requirements.txt
 alembic upgrade head
 uvicorn app.main:app --reload --port 8000
