@@ -17,6 +17,8 @@ Full-municipality digital twin for **Klina (Klinë), Kosovo**: Next.js + MapLibr
 
 ## Run locally
 
+**Python:** use **3.12 or 3.13** (3.15 is too new for current package wheels).
+
 ```bash
 cp .env.example .env
 cp frontend/.env.example frontend/.env.local
@@ -26,7 +28,7 @@ docker compose up -d db
 
 # API
 cd backend
-python -m venv .venv && source .venv/bin/activate
+python -m venv .venv && source .venv/bin/activate   # Windows: py -3.12 -m venv .venv
 pip install -r requirements.txt
 alembic upgrade head
 uvicorn app.main:app --reload --port 8000
