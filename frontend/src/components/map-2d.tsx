@@ -34,13 +34,13 @@ export function Map2D({ activeLayers }: Props) {
         sources: {
           basemap: {
             type: "raster",
-            // Free street basemap — no API key.
-            // Esri Dark Gray Canvas shows "Map data not yet available" at high zoom in Kosovo.
+            // Esri street tiles (no API key). OSM/Carto CDNs return AJAXError 0
+            // on some networks. Esri path order is {z}/{y}/{x}.
             tiles: [
-              "https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+              "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
             ],
             tileSize: 256,
-            attribution: "© OpenStreetMap contributors © Humanitarian OSM Team",
+            attribution: "Tiles © Esri — Source: Esri, TomTom, Garmin, FAO, NOAA, USGS",
           },
         },
         layers: [
